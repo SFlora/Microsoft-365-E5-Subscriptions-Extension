@@ -9,8 +9,6 @@ import java.util.Properties;
 /**
  * @author Yipeng.Liu
  */
-@Configuration
-@ConfigurationProperties(DataSourceProperties.DATA_SOURCE_PREFIX)
 public class DataSourceProperties {
 
 	/** DataSource properties配置文件前缀 */

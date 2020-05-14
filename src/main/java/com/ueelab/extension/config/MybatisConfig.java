@@ -19,6 +19,13 @@ import java.util.Objects;
 @ConditionalOnBean(DataSource.class)
 public class MybatisConfig {
 
+	@Bean
+	@ConfigurationProperties(prefix = MybatisProperties.MYBATIS_PREFIX)
+	@ConditionalOnMissingBean
+	public MybatisProperties createMybatisProperties() {
+		return new MybatisProperties();
+	}
+
 	/**
 	 * Mybatis
 	 */
@@ -38,16 +45,6 @@ public class MybatisConfig {
 		}
 
 		return bean;
-	}
-
-	/**
-	 * Mybatis properties
-	 */
-	@Bean
-	@ConfigurationProperties(prefix = MybatisProperties.MYBATIS_PREFIX)
-	@ConditionalOnMissingBean
-	public MybatisProperties createMybatisProperties() {
-		return new MybatisProperties();
 	}
 
 }
