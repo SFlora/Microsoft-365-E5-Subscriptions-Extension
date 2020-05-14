@@ -1,5 +1,6 @@
 package com.ueelab.extension.controller;
 
+import com.ueelab.extension.common.Result;
 import com.ueelab.extension.service.ApiCallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +20,8 @@ public class ApiCallController {
 	private ApiCallService apiCallService;
 
 	@GetMapping("callback")
-	public void callback(HttpServletRequest req) {
-		apiCallService.callback(req);
+	public Result<Void> callback(HttpServletRequest req) {
+		return apiCallService.callback(req);
 	}
 
 }

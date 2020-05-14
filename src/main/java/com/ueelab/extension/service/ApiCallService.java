@@ -1,6 +1,7 @@
 package com.ueelab.extension.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.ueelab.extension.common.Result;
 import com.ueelab.extension.entity.ClientEntity;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,5 +18,5 @@ public interface ApiCallService {
 
 	JSONObject callOutLookApi(ClientEntity entity);
 
-	void callback(HttpServletRequest req);
+	Result<Void> callback(HttpServletRequest req);
 }

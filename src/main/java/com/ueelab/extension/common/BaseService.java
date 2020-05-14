@@ -1,6 +1,5 @@
 package com.ueelab.extension.common;
 
-import com.baomidou.mybatisplus.extension.api.R;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +11,17 @@ public class BaseService {
 	protected Logger logger = LoggerFactory.getLogger(getClass());
 
 	protected <T> Result<T> packResult() {
-		return new Result<>();
+		Result<T> result = new Result<>();
+		result.setCode("200");
+		result.setMsg("SUCCESS");
+		return result;
+	}
+
+	protected <T> Result<T> packFiledResult() {
+		Result<T> result = new Result<>();
+		result.setCode("500");
+		result.setMsg("FAILED");
+		return result;
 	}
 
 	protected <T> Result<T> packResult(T data) {

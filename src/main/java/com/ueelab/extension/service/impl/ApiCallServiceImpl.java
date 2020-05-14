@@ -3,6 +3,7 @@ package com.ueelab.extension.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.ueelab.extension.common.BaseService;
 import com.ueelab.extension.common.HttpClient;
+import com.ueelab.extension.common.Result;
 import com.ueelab.extension.dao.ClientDao;
 import com.ueelab.extension.entity.ClientEntity;
 import com.ueelab.extension.service.ApiCallService;
@@ -83,12 +84,14 @@ public class ApiCallServiceImpl extends BaseService implements ApiCallService {
 	}
 
 	@Override
-	public void callback(HttpServletRequest req) {
+	public Result<Void> callback(HttpServletRequest req) {
 		String code = this.getSingleValue(req, "code");
 		String state = this.getSingleValue(req, "state");
+		Result<Void> result = packResult();
 		if (Objects.isNull(state)) {
 			logger.error(JSONObject.toJSONString(req.getParameterMap()));
-			return;
+			result.setMsg("授权失败");
+			return result;
 		}
 		JSONObject jsonObject = JSONObject.parseObject(state);
 		String clientId = jsonObject.getString("clientId");
@@ -96,6 +99,8 @@ public class ApiCallServiceImpl extends BaseService implements ApiCallService {
 		entity.setAuthorizationCode(code);
 		clientDao.updateById(entity);
 		logger.info("授权成功 : " + state);
+		result.setMsg("授权成功");
+		return result;
 	}
 
 	private String getSingleValue(HttpServletRequest req, String key) {
