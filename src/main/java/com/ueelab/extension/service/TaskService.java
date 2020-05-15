@@ -43,7 +43,7 @@ public class TaskService extends BaseService implements ApplicationListener<Appl
 		logger.info("---------------------------------------");
 	}
 
-	@Scheduled(fixedDelay = 6 * 60 * 60 * 1000, initialDelay = 10 * 1000)//6小时
+	@Scheduled(cron = "0 0 0,6,12,18 * * ?") //6小时
 	public void task() {
 		List<ClientEntity> entityList = clientDao.selectAll();
 		if (Objects.isNull(entityList) || entityList.size() == 0) {
