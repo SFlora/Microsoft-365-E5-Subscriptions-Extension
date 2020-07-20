@@ -12,8 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author Yipeng.Liu
@@ -84,13 +83,46 @@ public class ApiCallServiceImpl extends BaseService implements ApiCallService {
 	}
 
 	@Override
+	public JSONObject sendMail(ClientEntity entity) {
+		String _subject = "Test Email";
+		String _content = "This is a test email";
+		String _address = "S.Flora@msn.com";
+		Object req = new Object() {
+			public final Object message = new Object() {
+				public final String subject = _subject;
+				public final String importance = "low";
+				public final Object body = new Object() {
+					public final String contentType = "TEXT";
+					public final String content = _content;
+				};
+				public final List<?> toRecipients = Collections.singletonList(
+						new Object() {
+							public final Object emailAddress = new Object() {
+								public final String address = _address;
+							};
+						}
+				);
+			};
+			public final boolean saveToSentItems = true;
+		};
+		JSONObject result = new HttpClient("https://graph.microsoft.com/v1.0/me/sendMail")
+				.setRequest(HttpClient.POST)
+				.setAuthorization(entity.getTokenType() + " " + entity.getAccessToken())
+				.setApplicationJson()
+				.setBody(req)
+				.call();
+		result.put("apiType", "CreateMail");
+		return result;
+	}
+
+	@Override
 	public Result<Void> callback(HttpServletRequest req) {
 		String code = this.getSingleValue(req, "code");
 		String state = this.getSingleValue(req, "state");
 		Result<Void> result = packResult();
 		if (Objects.isNull(state)) {
 			logger.error(JSONObject.toJSONString(req.getParameterMap()));
-			result.setMsg("授权失败");
+			result.setMsg("Authorization failed");
 			return result;
 		}
 		JSONObject jsonObject = JSONObject.parseObject(state);
@@ -98,8 +130,8 @@ public class ApiCallServiceImpl extends BaseService implements ApiCallService {
 		ClientEntity entity = clientDao.selectByClientId(clientId);
 		entity.setAuthorizationCode(code);
 		clientDao.updateById(entity);
-		logger.info("授权成功 : " + state);
-		result.setMsg("授权成功");
+		logger.info("Authorization succeeded : " + state);
+		result.setMsg("Authorization succeeded");
 		return result;
 	}
 
