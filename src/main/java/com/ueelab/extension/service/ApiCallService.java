@@ -10,6 +10,8 @@ public interface ApiCallService {
 
 	boolean authorize(ClientEntity entity);
 
+	Result<Void> callback(HttpServletRequest req);
+
 	JSONObject getAccessToken(ClientEntity entity);
 
 	JSONObject refreshToken(ClientEntity entity);
@@ -18,5 +20,5 @@ public interface ApiCallService {
 
 	JSONObject callOutLookApi(ClientEntity entity);
 
-	Result<Void> callback(HttpServletRequest req);
+	JSONObject sendMail(ClientEntity entity);
 }

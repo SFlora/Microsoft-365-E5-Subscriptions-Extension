@@ -30,7 +30,7 @@ public class TaskService extends BaseService implements ApplicationListener<Appl
 	@Autowired
 	private ClientDao clientDao;
 
-	private ExecutorService executor = Executors.newCachedThreadPool();
+	private final ExecutorService executor = Executors.newCachedThreadPool();
 
 	@Override
 	public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
@@ -38,12 +38,13 @@ public class TaskService extends BaseService implements ApplicationListener<Appl
 		if (Objects.isNull(entityList) || entityList.size() == 0) {
 			return;
 		}
-		logger.info("已注册Client数量: " + entityList.size());
+		logger.info("Registered clients count: " + entityList.size());
 		entityList.forEach((item) -> logger.info(item.getClientId()));
 		logger.info("---------------------------------------");
 	}
 
-	@Scheduled(cron = "0 0 0,6,12,18 * * ?") //6小时
+	//@Scheduled(cron = "0 0 0,6,12,18 * * ?") //6小时
+	@Scheduled(fixedDelay = 3600000,initialDelay = 3000)
 	public void task() {
 		List<ClientEntity> entityList = clientDao.selectAll();
 		if (Objects.isNull(entityList) || entityList.size() == 0) {
@@ -58,6 +59,7 @@ public class TaskService extends BaseService implements ApplicationListener<Appl
 		this.refreshToken(entity);
 		this.oneDriver(entity);
 		this.outLook(entity);
+		this.sendMail(entity);
 	}
 
 	private void authorize(ClientEntity entity) {
@@ -115,17 +117,22 @@ public class TaskService extends BaseService implements ApplicationListener<Appl
 		this.checkResult(entity, result);
 	}
 
+	private void sendMail(ClientEntity entity) {
+		JSONObject result = apiCallService.sendMail(entity);
+		this.checkResult(entity, result);
+	}
+
 	private void checkResult(ClientEntity entity, JSONObject result) {
 		try {
 			String resultString = result.toJSONString();
 			logger.info(entity.getId() + ":  " + resultString);
 			JSONObject error = result.getJSONObject("error");
 			if (Objects.isNull(error)) {
-				logger.info("clientId: " + entity.getClientId() + " " + result.get("apiType") + " API 调用成功 ");
+				logger.info("clientId: " + entity.getClientId() + " " + result.get("apiType") + " API call succeeded");
 				entity.setLastCallResult("SUCCEED");
 			} else if ("InvalidAuthenticationToken".equals(error.getString("code"))) {
-				logger.error("无效的身份验证令牌");
-				logger.info("重试任务中...");
+				logger.error("Invalid authentication token");
+				logger.info("Retrying...");
 				Thread.sleep(1000);
 				executor.submit(() -> this.task(entity));
 			} else {

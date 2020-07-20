@@ -10,6 +10,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
@@ -75,8 +77,21 @@ public class HttpClient {
 		return this;
 	}
 
+	public HttpClient setApplicationJson() {
+		request.setHeader("Content-Type", "application/json");
+		request.setHeader("Accept-Charset", "utf-8");
+		return this;
+	}
+
 	public HttpClient setAuthorization(String authorization) {
 		request.setHeader("Authorization", authorization);
+		return this;
+	}
+
+	public HttpClient setBody(Object obj) {
+		if (request instanceof HttpPost) {
+			((HttpPost) request).setEntity(new StringEntity(JSONObject.toJSONString(obj), ContentType.APPLICATION_JSON));
+		}
 		return this;
 	}
 
