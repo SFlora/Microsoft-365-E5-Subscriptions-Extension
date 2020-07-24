@@ -84,7 +84,7 @@ public class ApiCallServiceImpl extends BaseService implements ApiCallService {
 	public JSONObject sendMail(ClientEntity entity) {
 		String _subject = "Test Email";
 		String _content = "This is a test email";
-		String _address = "S.Flora@msn.com";
+		String _address = "S@SFlora.onmicrosoft.com";
 		Object req = new Object() {
 			public final Object message = new Object() {
 				public final String subject = _subject;
