@@ -6,9 +6,7 @@ import org.springframework.context.annotation.PropertySource;
 
 import java.util.Properties;
 
-/**
- * @author Yipeng.Liu
- */
+
 public class DataSourceProperties {
 
 	/** DataSource properties配置文件前缀 */

@@ -17,9 +17,6 @@ import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * @author Yipeng.Liu
- */
 @Service
 @EnableScheduling
 public class TaskService extends BaseService implements ApplicationListener<ApplicationReadyEvent> {
@@ -43,14 +40,14 @@ public class TaskService extends BaseService implements ApplicationListener<Appl
 		logger.info("---------------------------------------");
 	}
 
-	//@Scheduled(cron = "0 0 0,6,12,18 * * ?") //6小时
-	@Scheduled(fixedDelay = 3600000,initialDelay = 3000)
+	//@Scheduled(fixedDelay = 3600000,initialDelay = 3000)
+	@Scheduled(cron = "0 0 0,6,12,18 * * ?") // 6 HOURS
 	public void task() {
 		List<ClientEntity> entityList = clientDao.selectAll();
 		if (Objects.isNull(entityList) || entityList.size() == 0) {
 			return;
 		}
-		entityList.forEach(entity -> executor.submit(() -> this.task(entity)));
+		entityList.forEach(entity -> executor.execute(() -> this.task(entity)));
 	}
 
 	private void task(ClientEntity entity) {

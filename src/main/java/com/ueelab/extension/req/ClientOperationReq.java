@@ -1,8 +1,6 @@
 package com.ueelab.extension.req;
 
-/**
- * @author Yipeng.Liu
- */
+
 public class ClientOperationReq {
 
 	private String id;

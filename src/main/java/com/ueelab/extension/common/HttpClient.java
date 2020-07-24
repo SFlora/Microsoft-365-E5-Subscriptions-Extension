@@ -23,16 +23,14 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author Yipeng.Liu
- */
+
 
 public class HttpClient {
 	public static final Integer GET = 1;
 	public static final Integer POST = 2;
 	private HttpRequestBase request;
 	private List<NameValuePair> param;
-	private String uri;
+	private final String uri;
 
 	public HttpClient(String uri) {
 		this.uri = uri;

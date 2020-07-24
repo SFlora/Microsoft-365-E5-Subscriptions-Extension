@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * @author Yipeng.Liu
- */
+
 @RestController
 @RequestMapping("/")
 public class ApiCallController {

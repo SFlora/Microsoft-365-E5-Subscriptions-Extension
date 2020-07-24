@@ -12,9 +12,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.util.UUID;
 
-/**
- * @author Yipeng.Liu
- */
+
 @Service
 public class ClientServiceImpl extends BaseService implements ClientService {
 

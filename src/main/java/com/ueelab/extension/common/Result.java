@@ -2,9 +2,7 @@ package com.ueelab.extension.common;
 
 import java.io.Serializable;
 
-/**
- * @author Yipeng.Liu
- */
+
 public class Result<T> implements Serializable {
 
 	protected String code;

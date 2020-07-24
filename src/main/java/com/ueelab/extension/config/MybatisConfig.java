@@ -12,9 +12,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import javax.sql.DataSource;
 import java.util.Objects;
 
-/**
- * @author Yipeng.Liu
- */
+
 @Configuration
 @ConditionalOnBean(DataSource.class)
 public class MybatisConfig {

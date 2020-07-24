@@ -3,9 +3,7 @@ package com.ueelab.extension.common;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * @author Yipeng.Liu
- */
+
 public class BaseService {
 
 	protected Logger logger = LoggerFactory.getLogger(getClass());

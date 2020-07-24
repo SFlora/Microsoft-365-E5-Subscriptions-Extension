@@ -14,9 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
-/**
- * @author Yipeng.Liu
- */
+
 @Service
 public class ApiCallServiceImpl extends BaseService implements ApiCallService {
 

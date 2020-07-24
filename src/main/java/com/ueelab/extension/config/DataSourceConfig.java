@@ -10,9 +10,7 @@ import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
 
-/**
- * @author Yipeng.Liu
- */
+
 @Configuration
 public class DataSourceConfig {
 

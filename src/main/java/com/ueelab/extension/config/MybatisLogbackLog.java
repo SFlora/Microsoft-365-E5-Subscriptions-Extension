@@ -4,9 +4,7 @@ import org.apache.ibatis.logging.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * @author Yipeng.Liu
- */
+
 public class MybatisLogbackLog implements Log {
 
 	private Logger logger;

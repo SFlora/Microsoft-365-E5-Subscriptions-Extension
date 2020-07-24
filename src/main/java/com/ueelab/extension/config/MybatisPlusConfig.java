@@ -25,9 +25,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-/**
- * @author Yipeng.Liu
- */
+
 @Configuration
 @ConditionalOnBean(DataSource.class)
 public class MybatisPlusConfig {

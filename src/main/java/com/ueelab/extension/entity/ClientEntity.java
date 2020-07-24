@@ -4,9 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.sql.Timestamp;
 
-/**
- * @author Yipeng.Liu
- */
+
 @TableName("t_client")
 public class ClientEntity {
 
