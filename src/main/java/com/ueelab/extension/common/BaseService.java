@@ -10,15 +10,13 @@ public class BaseService {
 
 	protected <T> Result<T> packResult() {
 		Result<T> result = new Result<>();
-		result.setCode("200");
-		result.setMsg("SUCCESS");
+		result.setCode("SUCCESS");
 		return result;
 	}
 
 	protected <T> Result<T> packFiledResult() {
 		Result<T> result = new Result<>();
-		result.setCode("500");
-		result.setMsg("FAILED");
+		result.setCode("FAILED");
 		return result;
 	}
 
