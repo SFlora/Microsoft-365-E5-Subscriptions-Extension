@@ -125,7 +125,7 @@ public class TaskService extends BaseService implements ApplicationListener<Appl
 			logger.info(entity.getId() + ":  " + resultString);
 			JSONObject error = result.getJSONObject("error");
 			if (Objects.isNull(error)) {
-				logger.info("clientId: " + entity.getClientId() + " " + result.get("apiType") + " API call succeeded");
+				logger.info("clientId: " + entity.getClientId() + " " + result.get("apiType") + " API call succeed");
 				entity.setLastCallResult("SUCCEED");
 			} else if ("InvalidAuthenticationToken".equals(error.getString("code"))) {
 				logger.error("Invalid authentication token");
